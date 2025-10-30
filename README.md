@@ -119,7 +119,7 @@ prediction = knn.predict(reduced_logprobs)
 
 ```
 .
-├── test_8bit_pure_variance.ipynb    # Main experiment notebook
+├── main.ipynb                        # Main experiment notebook
 ├── tsne_*.png                        # t-SNE visualization results
 ├── boilerplate_detector_*.pkl        # Trained k-NN classifiers
 ├── model_metadata_*.pkl              # Model metadata & reducers
