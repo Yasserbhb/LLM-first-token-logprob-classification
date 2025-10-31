@@ -1,4 +1,4 @@
-# LLM Refusal Detection via First-Token Log-Probabilities
+# LLM BoilerPlate Responses Detection via First-Token Log-Probabilities
 
 Implementation of the paper **["Do Stop Me Now: Detecting Boilerplate Responses with a Single Iteration"](https://arxiv.org/abs/2510.22679)** by Yuval Kainan and Shaked Zychlinski (JFrog), exploring boilerplate responses in small language models using first-token log-probability analysis.
 
