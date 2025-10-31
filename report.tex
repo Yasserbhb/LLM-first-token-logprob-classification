@@ -7,7 +7,7 @@
 \usepackage{float}
 \usepackage{multirow}
 
-\title{\textbf{LLM Refusal Detection via First-Token Log-Probabilities}}
+\title{\textbf{Detecting Boilerplate Responses in LLMs via First-Token Log-Probabilities}}
 \author{Yasser BOUHAI}
 \date{\today}
 
@@ -17,16 +17,17 @@
 
 \section{Introduction}
 
-This work implements the methodology from \textit{"Don't Stop Me Now: Embedding Based Scheduling for LLMs"} \cite{finkelshtein2025dontstop} by Finkelshtein et al. The paper demonstrates that large language models encode their intent in the log-probability distribution of the first generated token, enabling proactive detection of refusals before any text generation occurs.
+This work implements the methodology from \textit{"Do Stop Me Now: Detecting Boilerplate Responses with a Single Iteration"} by Kainan and Zychlinski. The paper demonstrates that large language models encode their intent in the log-probability distribution of the first generated token, enabling proactive detection of boilerplate responses—including refusals, greetings, and gratitude expressions—before any text generation occurs.
 
 \subsection{Motivation}
 
-Traditional refusal detection requires generating model output and analyzing the text, wasting computational resources. This approach detects refusals \textbf{before generation} by examining only the first token's log-probabilities, offering:
+Traditional response classification requires generating model output and analyzing the text, wasting computational resources. This approach detects boilerplate response types \textbf{before generation} by examining only the first token's log-probabilities, offering:
 
 \begin{itemize}
-    \item \textbf{Proactive refusal detection} -- Know if the model will refuse before wasting compute
-    \item \textbf{Intent classification} -- Distinguish between chat responses, greetings, thanks, and refusals
-    \item \textbf{Computational efficiency} -- Classification takes milliseconds after one-time feature extraction
+    \item \textbf{Proactive boilerplate detection} --- Identify response type before wasting compute on full generation
+    \item \textbf{Multi-class intent classification} --- Distinguish between chat responses, greetings, thanks, and refusals
+    \item \textbf{Computational efficiency} --- Classification takes milliseconds after one-time feature extraction
+    \item \textbf{Early termination/routing} --- Route simple responses to smaller models or skip generation entirely
 \end{itemize}
 
 \section{Methodology}
@@ -68,7 +69,7 @@ These optimizations allow the experiments to run on consumer hardware while main
 
 \subsection{Overall Performance}
 
-Table \ref{tab:overall} compares our results with the original paper. Despite using 8-bit quantization and reduced feature space, the models achieve 76--79\% F1-scores, approximately 20\% lower than the paper's full-precision results.
+the following table compares our results with the original paper. Despite using 8-bit quantization and reduced feature space, the models achieve 76--79\% F1-scores, approximately 20\% lower than the paper's full-precision results.
 
 \begin{table}[H]
 \centering
@@ -91,7 +92,7 @@ Gemma-3-1B (8-bit) & 0.820 & 0.835 & 0.770 & 0.789 \\
 
 \subsection{Per-Category Performance}
 
-Table \ref{tab:category} shows detailed metrics for each response type. Key observations:
+The table  shows detailed metrics for each response type. Key observations:
 \begin{itemize}
     \item \textbf{Hello} messages are detected perfectly or near-perfectly (F1: 0.96--1.00)
     \item \textbf{Chat} responses are reliably classified (F1: 0.87--0.88)
@@ -127,7 +128,7 @@ Table \ref{tab:category} shows detailed metrics for each response type. Key obse
 
 \subsection{t-SNE Visualizations}
 
-Figures \ref{fig:qwen}--\ref{fig:gemma} show 2D t-SNE projections of the 1,000-dimensional feature vectors. Clear cluster separation demonstrates that models encode intent classification information in the first token's probability distribution.
+The next 3 Figures show 2D t-SNE projections of the 1,000-dimensional feature vectors. Clear cluster separation demonstrates that models encode intent classification information in the first token's probability distribution.
 
 \begin{figure}[H]
 \centering
@@ -173,7 +174,7 @@ Despite these constraints, the results remain highly usable for practical refusa
 
 \section{Conclusion}
 
-This work successfully reproduces the core methodology from Finkelshtein et al.'s paper on consumer hardware. By using 8-bit quantization and variance-based feature selection, we achieve competitive performance (76--79\% F1) while requiring only a fraction of the computational resources. The clear cluster separation in t-SNE visualizations confirms that LLMs encode intent in first-token log-probabilities, enabling efficient proactive refusal detection.
+This work successfully reproduces the core methodology from Kainan and Zychlinski's paper on consumer hardware. By using 8-bit quantization and variance-based feature selection, we achieve competitive performance (76--79\% F1) while requiring only a fraction of the computational resources. The clear cluster separation in t-SNE visualizations confirms that LLMs encode intent in first-token log-probabilities, enabling efficient proactive detection of multiple boilerplate response types including refusals, greetings, and gratitude expressions.
 
 \subsection{Future Work}
 
@@ -186,10 +187,10 @@ Potential improvements include:
 \end{itemize}
 
 \begin{thebibliography}{9}
-\bibitem{finkelshtein2025dontstop}
-Ben Finkelshtein et al.,
-\textit{Don't Stop Me Now: Embedding Based Scheduling for LLMs},
-arXiv preprint arXiv:2501.00660, 2025.
+\bibitem{kainan2025dostop}
+Yuval Kainan and Shaked Zychlinski,
+\textit{Do Stop Me Now: Detecting Boilerplate Responses with a Single Iteration},
+arXiv preprint arXiv:2510.22679, 2025.
 \end{thebibliography}
 
 \end{document}

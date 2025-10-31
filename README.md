@@ -1,6 +1,6 @@
 # LLM Refusal Detection via First-Token Log-Probabilities
 
-Implementation of the paper **["Don't Stop Me Now: Embedding Based Scheduling for LLMs"](https://arxiv.org/abs/2501.00660)** by Ben Finkelshtein et al., exploring refusal detection in small language models using first-token log-probability analysis.
+Implementation of the paper **["Do Stop Me Now: Detecting Boilerplate Responses with a Single Iteration"](https://arxiv.org/abs/2510.22679)** by Yuval Kainan and Shaked Zychlinski (JFrog), exploring boilerplate responses in small language models using first-token log-probability analysis.
 
 ## What This Does
 
@@ -129,10 +129,10 @@ prediction = knn.predict(reduced_logprobs)
 ## Citation
 
 ```bibtex
-@article{finkelshtein2025dontstop,
-  title={Don't Stop Me Now: Embedding Based Scheduling for LLMs},
-  author={Finkelshtein, Ben and others},
-  journal={arXiv preprint arXiv:2501.00660},
+@article{kainan2025dostop,
+  title={Do Stop Me Now: Detecting Boilerplate Responses with a Single Iteration},
+  author={Kainan, Yuval and Zychlinski, Shaked},
+  journal={arXiv preprint arXiv:2510.22679},
   year={2025}
 }
 ```

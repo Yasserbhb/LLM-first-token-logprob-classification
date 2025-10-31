@@ -26,3 +26,10 @@ ENV/
 # OS
 .DS_Store
 Thumbs.db
+
+#extras
+*.aux
+*.log
+*.out
+report.tex 
+.pdf
